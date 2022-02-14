@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        min-height: 400px;
+        min-width: 400px;
+        margin: 0px;
+        background-color: rgb(55, 218, 40);
+      }
+      #mainf {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+      }
+      #clock_frame {
+        height: 50vw;
+        width: 50vw;
+        border: 3px solid black;
+        border-radius: 300vw;
+        background-image: url("Clock_background.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 50vw 50vw;
+      }
+      #handsecond {
+        margin-top: -1px;
+        height: 0.4vw;
+        width: 22vw;
+        background-color: black;
+        border-radius: 2px 1px 1px 2px;
+        transform-origin: 100% 50%;
+        transform: translateX(3vw) translateY(24.8vw);
+        transition-property: all;
+        opacity: 1;
+      }
+      #handminute {
+        height: 0.7vw;
+        width: 24vw;
+        background-color: black;
+        border-radius: 2.5px 1.5px 1.5px 2.5px;
+        transform-origin: 100% 50%;
+        transform: translateX(1vw) translateY(24.25vw);
+        opacity: 0.7;
+      }
+      #handhour {
+        height: 1vw;
+        width: 20vw;
+        background-color: black;
+        border-radius: 3px 2px 2px 3px;
+        transform-origin: 100% 50%;
+        transform: translateX(5vw) translateY(23.4vw);
+        opacity: 1;
+      }
+      h1 {
+        font-family: fantasy, arial;
+      }
+      p {
+        text-align: right;
+        width: 67vw;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.3em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">Clock</h1>
+    <p>Made by <strong style="font-size: 1.2em"> <a href="mailto:sahayanurag7@gmail.com" style="text-decoration: none; color:rgb(207, 25, 192);">Anurag Sahay</a> </strong></p>
+    <div id="mainf">
+      <div id="clock_frame">
+        <div id="handsecond"></div>
+        <div id="handminute"></div>
+        <div id="handhour"></div>
+      </div>
+    </div>
+    <script>
+      var initialSecond = "translateX(3vw) translateY(24.8vw) rotate(";
+      var initialMinute = "translateX(1vw) translateY(24.25vw) rotate(";
+      var initialHour = "translateX(5vw) translateY(23.4vw) rotate(";
+      var minuteHand = document.getElementById("handminute");
+      var secondHand = document.getElementById("handsecond");
+      var hourHand = document.getElementById("handhour");
+      var lst = "deg)";
+      var newDate = new Date();
+      var valueSecond = newDate.getSeconds();
+      var valueMinute = newDate.getMinutes();
+      var valueHour = newDate.getHours();
+      valueSecond += 1;
+      valueMinute += valueSecond / 60;
+      valueHour %= 12;
+      valueHour += valueMinute / 60;
+      valueMinute *= 6;
+      valueHour *= 30;
+      valueMinute += 90;
+      valueHour += 90;
+      valueSecond *= 6;
+      valueSecond += 90;
+      function clockk() {
+        secondHand.style.transform = initialSecond + valueSecond + lst;
+        minuteHand.style.transform = initialMinute + valueMinute + lst;
+        hourHand.style.transform = initialHour + valueHour + lst;
+        document.getElementById("mainf").style.visibility = "visible";
+        valueHour += 1 / 120;
+        valueMinute += 1 / 10;
+        valueSecond += 6;
+      }
+      setInterval(clockk, 1000);
+    </script>
+  </body>
+</html>
